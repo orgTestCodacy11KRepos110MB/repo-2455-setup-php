@@ -257,7 +257,7 @@ Function Add-DebugSymbols {
 
 # Function to install nightly version of PHP
 Function Install-PhpNightly {
-  Invoke-WebRequest -UseBasicParsing -Uri $php_builder/releases/latest/download/Get-PhpNightly.ps1 -OutFile $php_dir\Get-PhpNightly.ps1 > $null 2>&1
+  Invoke-WebRequest -MaximumRetryCount 10 -UseBasicParsing -Uri $php_builder/releases/latest/download/Get-PhpNightly.ps1 -OutFile $php_dir\Get-PhpNightly.ps1 > $null 2>&1
   & $php_dir\Get-PhpNightly.ps1 -Architecture $arch -ThreadSafe $ts -Path $php_dir -Version $version > $null 2>&1
   if(Test-Path $php_dir\COMMIT) {
     return " ($( Get-Content $php_dir\COMMIT ))"
